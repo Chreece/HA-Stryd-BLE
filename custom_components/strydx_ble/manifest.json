@@ -1,4 +1,6 @@
 {
+  "domain": "strydx_ble",
+  "name": "Stryd BLE",
   "after_dependencies": [
     "bluetooth"
   ],
@@ -17,10 +19,8 @@
     "bluetooth_adapters"
   ],
   "documentation": "https://github.com/Chreece/HA-Stryd-BLE",
-  "domain": "strydx_ble",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/Chreece/HA-Stryd-BLE/issues",
-  "name": "Stryd BLE",
   "requirements": [],
   "version": "2026.8.0"
 }
