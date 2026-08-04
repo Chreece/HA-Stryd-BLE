@@ -4,160 +4,251 @@
 [![GitHub release](https://img.shields.io/github/v/release/Chreece/ha-stryd-ble)](https://github.com/Chreece/ha-stryd-ble/releases)
 [![License](https://img.shields.io/github/license/Chreece/ha-stryd-ble)](LICENSE)
 
-A local Home Assistant custom integration for Stryd running pods.
+A fully local Home Assistant custom integration for **Stryd running pods**.
 
-It continuously reads passive Bluetooth advertisements for battery and signal information, while keeping the pod's active BLE connection free for a sports watch or phone. Live running measurements are available only when explicitly requested with the **Connect live data** button.
+Unlike integrations that keep a permanent Bluetooth connection open, **Stryd BLE** is designed around passive Bluetooth advertisements. Battery and diagnostic information are always available without reserving the pod's BLE connection, allowing it to remain available for your sports watch, bike computer or the official Stryd app.
+
+Whenever you want live running metrics, simply press **Connect live data**. Once finished, press **Disconnect live data** and the pod is immediately released again.
 
 > [!IMPORTANT]
-> This is an unofficial community integration and is not affiliated with, endorsed by, or supported by Stryd.
+> This is an unofficial community integration and is **not affiliated with, endorsed by, or supported by Stryd**.
+
+---
+
+## Compatibility
+
+- Home Assistant 2026.7 or newer
+- Home Assistant Bluetooth integration
+- Local Bluetooth adapters
+- ESPHome and Home Assistant **connectable Bluetooth proxies**
+
+---
 
 ## Features
 
-- Automatic Bluetooth discovery without relying on the advertised name `StrydX`
-- Identification using Stryd manufacturer ID `0xAAAA` and the standard Running Speed & Cadence service (`0x1814`)
-- Manual Bluetooth MAC-address setup
-- Works with local Bluetooth adapters and connectable Home Assistant Bluetooth proxies
-- Passive data remains available without reserving the BLE connection
-- One-shot metadata connection when model information has not yet been read
-- Manual connect/disconnect controls for live measurements
-- Product-generation naming after the model number is retrieved
-- English and Greek translations
+- Automatic Bluetooth discovery
+- Manual Bluetooth MAC address setup
+- Identification using **Manufacturer ID `0xAAAA`** and the standard **Running Speed & Cadence** BLE service (`0x1814`)
+- Works without relying on the advertised device name (`StrydX`)
+- Passive battery and diagnostic monitoring
+- Optional live BLE connection
+- Manual **Connect live data** / **Disconnect live data** buttons
+- Automatic one-shot metadata retrieval
+- Automatic product generation detection
 - Multiple Stryd pods supported
+- HACS compatible
+- Fully local operation
+- No cloud
+- No Stryd account required
+
+---
+
+## Translations
+
+The integration currently includes native translations for:
+
+- 🇬🇧 English
+- 🇬🇷 Greek
+- 🇩🇪 German
+- 🇫🇷 French
+- 🇪🇸 Spanish
+- 🇮🇹 Italian
+- 🇳🇱 Dutch
+- 🇵🇱 Polish
+- 🇵🇹 Portuguese
+
+Additional translations and improvements are always welcome.
+
+---
 
 ## Entities
 
-### Always available from passive advertisements
+### Passive Bluetooth entities (always available)
 
 | Entity | Description |
 |---|---|
 | Battery | Battery percentage broadcast by the pod |
-| Bluetooth signal strength | RSSI of the most recent advertisement |
-| Last advertisement | Time the latest advertisement was received |
-| Advertisement count | Diagnostic packet counter; disabled by default |
+| Bluetooth signal strength | RSSI of the latest advertisement |
+| Last advertisement | Timestamp of the latest advertisement |
+| Advertisement count | Diagnostic advertisement counter *(disabled by default)* |
 
-### Available during a manual live-data connection
+Passive entities continue updating without establishing a BLE connection.
+
+---
+
+### Live running entities
+
+Available after pressing **Connect live data**:
 
 | Entity | Description |
 |---|---|
-| Live power | Running power in watts |
+| Live power | Running power (W) |
 | Live speed | Instantaneous speed |
-| Live pace | Calculated pace in min/km |
+| Live pace | Calculated pace (min/km) |
 | Live cadence | Running cadence |
-| Live stride length | Stride length when included by the pod |
-| Live distance | Distance reported during the active connection |
-| Live movement state | Still, walking, or running |
-| Last live measurement | Timestamp; disabled by default to avoid frequent recorder writes |
+| Live stride length | Stride length |
+| Live distance | Distance during the active session |
+| Live movement state | Still / Walking / Running |
+| Last live measurement | Timestamp *(disabled by default to reduce Recorder writes)* |
 
-Live entities become unavailable when the BLE connection is closed.
+After pressing **Disconnect live data**, all live entities become unavailable while passive monitoring continues uninterrupted.
 
-### Device and diagnostic information
+---
 
-The integration can retrieve and retain:
+### Device information
 
-- Model number
+The integration automatically retrieves and stores:
+
 - Product generation
+- Model number
 - Firmware version
 - Software version
 - Hardware revision
 - Serial number
-- ANT ID derived from the pod identifier
-- Live-data connection state
+- ANT ID
+- Live connection state
 
-If identifying information is missing, the next matching advertisement triggers one short GATT connection. The integration reads the device information, saves it to the config entry, updates the device name, disconnects, and returns to passive mode.
+If device information has never been read before, the next advertisement automatically triggers a short metadata connection. The integration reads the information, stores it, updates the device name, disconnects again and returns to passive mode.
 
-## Supported product naming
+---
 
-The BLE advertisement initially appears as **Stryd running pod**. After reading the model number, the integration assigns the corresponding product-generation name, such as:
+## Product naming
+
+Initially, newly discovered devices appear as **Stryd running pod**.
+
+After the model number has been read, the device is automatically renamed to the appropriate generation, for example:
 
 - Stryd
 - Stryd Wind
 - Next Gen Stryd
 - Stryd 5.0
 
-Unknown or future model numbers remain usable and receive a safe generic Stryd name.
+Unknown or future models remain fully supported and receive a generic Stryd name.
+
+---
 
 ## Installation
 
-### HACS custom repository
+### HACS
 
-1. Open HACS in Home Assistant.
-2. Open the menu and select **Custom repositories**.
-3. Add `https://github.com/Chreece/ha-stryd-ble` as an **Integration** repository.
+1. Open **HACS**.
+2. Select **Custom repositories**.
+3. Add:
+
+```
+https://github.com/Chreece/HA-Stryd-BLE
+```
+
+Category:
+
+```
+Integration
+```
+
 4. Install **Stryd BLE**.
 5. Restart Home Assistant.
-6. Open **Settings → Devices & services → Add integration → Stryd BLE**.
+6. Add the integration via **Settings → Devices & Services**.
 
-### Manual installation
+### Manual
 
 1. Download the latest release.
-2. Copy `custom_components/strydx_ble` into your Home Assistant configuration directory:
+2. Copy:
 
-   ```text
-   /config/custom_components/strydx_ble
-   ```
+```
+custom_components/strydx_ble
+```
+
+to:
+
+```
+/config/custom_components/
+```
 
 3. Restart Home Assistant.
-4. Add **Stryd BLE** from **Settings → Devices & services**.
+4. Add **Stryd BLE** from **Settings → Devices & Services**.
 
-## Setup and discovery
+---
 
-Move or shake the pod so it starts advertising. Home Assistant should offer it automatically, or you can use the integration's scan flow.
+## Discovery
 
-Discovery requires both:
+Move or shake the pod so it starts advertising.
 
-- Manufacturer ID `43690` (`0xAAAA`)
-- Running Speed & Cadence service UUID `00001814-0000-1000-8000-00805f9b34fb`
+Discovery requires:
 
-The local Bluetooth name is intentionally not used as an identity criterion, making discovery more robust across product generations.
+- Manufacturer ID `0xAAAA`
+- Running Speed & Cadence service (`0x1814`)
 
-## Live connection behavior
+The advertised Bluetooth name is intentionally **not** used for identification, ensuring compatibility across current and future Stryd generations.
 
-The integration starts in passive-only mode after every Home Assistant restart.
+---
 
-- Press **Connect live data** to reserve the BLE connection and subscribe to live measurements.
-- Press **Disconnect live data** to release it for a watch or phone.
-- The integration does not automatically reconnect for live data after a manual disconnect.
-- Passive battery, RSSI, and last-seen data continue updating while disconnected.
+## Live connection behaviour
 
-A Stryd pod may permit only a limited number of simultaneous Bluetooth connections. Disconnect Home Assistant live data before pairing or syncing with another device if necessary.
+The integration always starts in **passive mode** after a Home Assistant restart.
+
+This design intentionally avoids permanently reserving the pod's BLE connection.
+
+- Press **Connect live data** whenever live metrics are required.
+- Press **Disconnect live data** to immediately release the pod.
+- Passive battery and diagnostic data continue updating while disconnected.
+
+> [!NOTE]
+> This behaviour allows the same Stryd pod to remain available for sports watches, cycling computers and the official Stryd mobile app.
+
+---
 
 ## Bluetooth proxies
 
-Passive information works through passive-capable proxies. Live GATT data and metadata retrieval require a **connectable** adapter or proxy.
+Passive monitoring works with passive Bluetooth adapters and proxies.
+
+Live running data and metadata retrieval require a **connectable** Bluetooth adapter or ESPHome Bluetooth proxy.
 
 For best results:
 
-- Keep the pod near the chosen adapter/proxy while connecting.
-- Close the Stryd app temporarily when testing GATT access.
-- Wake the pod immediately before pressing **Connect live data**.
+- Keep the pod close to the Bluetooth adapter.
+- Wake the pod immediately before connecting.
+- Close the Stryd app while testing if another device already holds the BLE connection.
+
+---
 
 ## Stored runs
 
-Stryd stores completed activities internally, but offline-history synchronization uses a separate proprietary protocol that is not implemented here. This integration currently supports passive advertisements, standard live BLE measurements, and Device Information characteristics only.
+Stryd stores completed activities internally, but synchronization uses a proprietary protocol that has not yet been reverse engineered.
+
+This integration currently supports:
+
+- Passive Bluetooth advertisements
+- Standard Bluetooth live running metrics
+- Bluetooth Device Information characteristics
+
+---
 
 ## Troubleshooting
 
-### The pod is not discovered
+### The pod isn't discovered
 
 - Wake it by moving or shaking it.
-- Confirm that Home Assistant receives manufacturer ID `0xAAAA` and service `0x1814`.
-- Ensure at least one Bluetooth adapter or proxy is in range.
-- Use manual MAC-address setup when discovery is unavailable.
+- Verify Manufacturer ID `0xAAAA`.
+- Verify Running Speed & Cadence service `0x1814`.
+- Ensure a Bluetooth adapter or proxy is nearby.
+- Use manual MAC address setup if necessary.
 
-### Live entities stay unavailable
+### Live entities remain unavailable
 
 - Press **Connect live data**.
-- Ensure the adapter/proxy is connectable.
-- Disconnect the pod from a phone app or watch temporarily.
-- Wake the pod and retry.
+- Ensure your Bluetooth adapter or proxy is connectable.
+- Disconnect the pod from any watch or phone.
+- Wake the pod and try again.
 
-### Names do not update
+### Product name doesn't update
 
-The integration needs one successful metadata connection to read the model number. Wake the pod and keep it near a connectable adapter. Existing manually customized entity names are preserved by Home Assistant.
+One successful metadata connection is required to retrieve the model number.
 
-### Debug logging
+Move the pod close to a connectable Bluetooth adapter and wake it once.
 
-Add this to `configuration.yaml`, restart Home Assistant, and reproduce the problem:
+---
+
+## Debug logging
 
 ```yaml
 logger:
@@ -165,16 +256,26 @@ logger:
     custom_components.strydx_ble: debug
 ```
 
-Attach the relevant log section when reporting an issue. Remove or redact Bluetooth addresses if desired.
+Please include the relevant log output when reporting issues.
+
+---
 
 ## Privacy
 
-All communication is local over Bluetooth. No cloud account or external service is required by this integration.
+All communication is performed locally over Bluetooth.
+
+No cloud services, internet access or Stryd account are required.
+
+---
 
 ## Contributing
 
-Bug reports, protocol observations, translations, and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Bug reports, feature requests, protocol discoveries, translations and pull requests are always welcome.
+
+See **CONTRIBUTING.md** for more information.
+
+---
 
 ## License
 
-Released under the [MIT License](LICENSE).
+Released under the **MIT License**.
