@@ -1,26 +1,26 @@
 {
   "domain": "strydx_ble",
   "name": "Stryd BLE",
-  "version": "3.5.0",
-  "config_flow": true,
-  "dependencies": [
-    "bluetooth_adapters"
-  ],
   "after_dependencies": [
     "bluetooth"
+  ],
+  "bluetooth": [
+    {
+      "connectable": true,
+      "manufacturer_id": 43690,
+      "service_uuid": "00001814-0000-1000-8000-00805f9b34fb"
+    }
   ],
   "codeowners": [
     "@Chreece"
   ],
-  "documentation": "https://github.com/Chreece/ha-stryd-ble",
-  "iot_class": "local_push",
-  "requirements": [],
-  "bluetooth": [
-    {
-      "manufacturer_id": 43690,
-      "service_uuid": "00001814-0000-1000-8000-00805f9b34fb",
-      "connectable": true
-    }
+  "config_flow": true,
+  "dependencies": [
+    "bluetooth_adapters"
   ],
-  "issue_tracker": "https://github.com/Chreece/ha-stryd-ble/issues"
+  "documentation": "https://github.com/Chreece/HA-Stryd-BLE",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/Chreece/HA-Stryd-BLE/issues",
+  "requirements": [],
+  "version": "3.5.0"
 }
