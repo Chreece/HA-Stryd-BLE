@@ -130,14 +130,19 @@ class StrydXCoordinator:
         self._stopping = False
         self._connection_requested = False
         self._last_connect_attempt = 0.0
-        self._last_metadata_attempt = 0.0
+        self._last_metadata_attempt: float | None = None
         self._last_crank_revolutions: int | None = None
         self._last_crank_event_time: int | None = None
 
     @property
     def metadata_complete(self) -> bool:
-        """Return whether enough identity data has been read to name the pod."""
-        return bool(self.data.model and self.data.firmware and self.data.software)
+        """Return whether the pod model has been read successfully.
+
+        Model number is the only field required to resolve the product name.
+        Firmware, software, hardware, and serial data are optional and are read
+        during the same Device Information session when available.
+        """
+        return bool(self.data.model)
 
     @callback
     def async_start(self) -> None:
@@ -214,7 +219,13 @@ class StrydXCoordinator:
 
         # If identity data has never been obtained, briefly connect once when the pod
         # advertises, read Device Information, persist it, and immediately disconnect.
-        if not self.metadata_complete and now - self._last_metadata_attempt >= CONNECT_RETRY_COOLDOWN:
+        if not self.metadata_complete and (
+            self._last_metadata_attempt is None
+            or now - self._last_metadata_attempt >= CONNECT_RETRY_COOLDOWN
+        ):
+            # The first identity attempt must happen immediately. Using 0.0 as the
+            # initial monotonic timestamp delayed it for up to 60 seconds after a
+            # Home Assistant/container restart, by which time the pod could sleep.
             self._last_metadata_attempt = now
             self._connect_task = self.hass.async_create_background_task(
                 self._async_connect(metadata_only=True), "Stryd identity read"
@@ -261,6 +272,11 @@ class StrydXCoordinator:
         )
         if ble_device is None:
             _LOGGER.debug("No connectable Bluetooth path currently reaches %s", self.address)
+            # Do not consume the one-time identity attempt merely because this
+            # advertisement was received through a passive-only path. A later
+            # advertisement from a connectable adapter/proxy should retry.
+            if metadata_only:
+                self._last_metadata_attempt = None
             return
 
         client: BleakClient | None = None

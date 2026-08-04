@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.1
+
+- Fix the initial automatic identity connection being delayed for up to 60 seconds after startup.
+- Retry identity discovery after advertisements received only through a passive Bluetooth path.
+- Treat the model number as the required identity field; firmware, software, hardware, and serial remain optional.
+
 All notable changes to this project are documented here.
 
 ## [3.5.0] - 2026-08-04

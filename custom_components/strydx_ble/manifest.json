@@ -22,5 +22,5 @@
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/Chreece/ha-stryd-ble/issues",
   "requirements": [],
-  "version": "3.6.0"
+  "version": "3.6.1"
 }
