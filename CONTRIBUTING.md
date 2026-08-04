@@ -18,9 +18,9 @@ Do not publish account credentials, tokens, or information you consider private.
 ## Development setup
 
 1. Fork and clone the repository.
-2. Copy or symlink `custom_components/strydx_ble` into a Home Assistant development configuration.
+2. Copy or symlink `custom_components/stryd_ble` into a Home Assistant development configuration.
 3. Restart Home Assistant after backend-code changes.
-4. Enable debug logging for `custom_components.strydx_ble`.
+4. Enable debug logging for `custom_components.stryd_ble`.
 5. Run the repository validation workflows before opening a pull request.
 
 ## Code guidelines

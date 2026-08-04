@@ -155,7 +155,7 @@ Integration
 2. Copy:
 
 ```
-custom_components/strydx_ble
+custom_components/stryd_ble
 ```
 
 to:
@@ -253,7 +253,7 @@ Move the pod close to a connectable Bluetooth adapter and wake it once.
 ```yaml
 logger:
   logs:
-    custom_components.strydx_ble: debug
+    custom_components.stryd_ble: debug
 ```
 
 Please include the relevant log output when reporting issues.

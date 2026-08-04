@@ -42,7 +42,7 @@ jobs:
         with:
           python-version: "3.14"
       - name: Compile Python sources
-        run: python -m compileall -q custom_components/strydx_ble
+        run: python -m compileall -q custom_components/stryd_ble
       - name: Validate JSON files
         run: |
           python - <<'PY'

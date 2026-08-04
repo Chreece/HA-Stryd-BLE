@@ -36,7 +36,7 @@ jobs:
           import json
           from pathlib import Path
 
-          manifest = Path("custom_components/strydx_ble/manifest.json")
+          manifest = Path("custom_components/stryd_ble/manifest.json")
           print(json.loads(manifest.read_text(encoding="utf-8"))["version"])
           PY
           )"
@@ -51,13 +51,13 @@ jobs:
         run: |
           set -euo pipefail
 
-          python3 -m compileall -q custom_components/strydx_ble
+          python3 -m compileall -q custom_components/stryd_ble
 
           python3 - <<'PY'
           import json
           from pathlib import Path
 
-          for path in Path("custom_components/strydx_ble").rglob("*.json"):
+          for path in Path("custom_components/stryd_ble").rglob("*.json"):
               with path.open(encoding="utf-8") as file:
                   json.load(file)
               print(f"Valid JSON: {path}")
@@ -137,11 +137,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          rm -f strydx_ble.zip
+          rm -f stryd_ble.zip
 
-          cd custom_components/strydx_ble
+          cd custom_components/stryd_ble
 
-          zip -r ../../strydx_ble.zip . \
+          zip -r ../../stryd_ble.zip . \
             -x "__pycache__/*" \
             -x "*/__pycache__/*" \
             -x "*.pyc" \
@@ -150,10 +150,10 @@ jobs:
           cd ../..
 
           echo "Archive contents:"
-          unzip -l strydx_ble.zip
+          unzip -l stryd_ble.zip
 
           # Ensure HACS can find the manifest at the ZIP root.
-          unzip -p strydx_ble.zip manifest.json >/dev/null
+          unzip -p stryd_ble.zip manifest.json >/dev/null
 
       - name: Determine release type
         id: release_type
@@ -174,7 +174,7 @@ jobs:
 
           ARGS=(
             "${GITHUB_REF_NAME}"
-            "strydx_ble.zip"
+            "stryd_ble.zip"
             --repo "${GITHUB_REPOSITORY}"
             --title "Stryd BLE ${GITHUB_REF_NAME}"
             --notes-file "release-notes.md"

@@ -458,7 +458,7 @@ class StrydXCoordinator:
         )
 
         registry = dr.async_get(self.hass)
-        device = registry.async_get_device(identifiers={("strydx_ble", self.address)})
+        device = registry.async_get_device(identifiers={("stryd_ble", self.address)})
         if device is not None:
             registry.async_update_device(
                 device.id,

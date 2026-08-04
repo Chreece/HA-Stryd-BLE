@@ -2,7 +2,7 @@
 
 from homeassistant.const import Platform
 
-DOMAIN = "strydx_ble"
+DOMAIN = "stryd_ble"
 PLATFORMS = [Platform.SENSOR, Platform.BUTTON]
 
 CONF_ADDRESS = "address"
