@@ -27,6 +27,8 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
 from homeassistant.util import dt as dt_util
 
+from .naming import async_migrate_entity_ids
+
 from .const import (
     CONF_ADDRESS,
     CONNECT_RETRY_COOLDOWN,
@@ -451,6 +453,11 @@ class StrydXCoordinator:
                 hw_version=self.data.hardware,
                 serial_number=self.data.serial_number,
             )
+
+        self.hass.async_create_background_task(
+            async_migrate_entity_ids(self.hass, self.entry, product_name),
+            "Migrate Stryd entity IDs",
+        )
 
     async def _async_read_device_information(self, client: BleakClient) -> None:
         fields = (

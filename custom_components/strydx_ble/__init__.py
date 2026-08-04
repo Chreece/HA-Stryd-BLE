@@ -7,6 +7,7 @@ from homeassistant.core import HomeAssistant
 
 from .const import PLATFORMS
 from .coordinator import StrydXCoordinator
+from .naming import async_migrate_entity_ids
 
 
 type StrydXConfigEntry = ConfigEntry[StrydXCoordinator]
@@ -18,6 +19,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: StrydXConfigEntry) -> bo
     entry.runtime_data = coordinator
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     coordinator.async_start()
+    await async_migrate_entity_ids(hass, entry, coordinator.data.product_name)
     return True
 
 

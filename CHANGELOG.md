@@ -43,3 +43,10 @@ All notable changes to this project are documented here.
 ## [1.0.0] - 2026-08-04
 
 - Initial passive Stryd battery integration.
+
+## 3.6.0
+
+- Generate useful entity IDs from the detected Stryd model, for example `sensor.next_gen_stryd_live_power`.
+- Migrate existing `strydx_*` entity IDs while preserving their unique IDs.
+- Keep entity IDs descriptive for live data, diagnostics, and connection buttons.
+- Add bundled translations for English, German, Greek, French, Spanish, Italian, Dutch, Portuguese, and Polish.

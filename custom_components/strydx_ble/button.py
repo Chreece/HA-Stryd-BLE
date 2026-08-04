@@ -14,6 +14,7 @@ from homeassistant.core import callback
 from . import StrydXConfigEntry
 from .const import CONF_ADDRESS, CONF_NAME, DOMAIN, GENERIC_NAMES
 from .coordinator import StrydXCoordinator
+from .naming import suggested_object_id
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -63,6 +64,9 @@ class StrydConnectionButton(ButtonEntity):
         self._entry = entry
         self.entity_description = description
         self._attr_unique_id = f"{entry.data[CONF_ADDRESS]}_{description.key}"
+        self._attr_suggested_object_id = suggested_object_id(
+            coordinator.data.product_name, description.key
+        )
 
     @property
     def device_info(self) -> DeviceInfo:
