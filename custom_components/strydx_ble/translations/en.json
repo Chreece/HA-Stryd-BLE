@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Scan for Stryd running pods",
+          "manual": "Enter Bluetooth MAC address manually"
+        }
+      },
+      "scan": {
+        "title": "Select a Stryd running pod",
+        "description": "Select a currently visible Stryd running pod.",
+        "data": {
+          "address": "Stryd running pod"
+        }
+      },
+      "manual": {
+        "title": "Add Stryd running pod manually",
+        "description": "Enter the static Bluetooth MAC address of your Stryd sensor.",
+        "data": {
+          "address": "Bluetooth MAC address",
+          "name": "Device name"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Add {name}",
+        "description": "Set up this discovered Stryd running pod?"
+      }
+    },
+    "error": {
+      "invalid_address": "Enter a valid Bluetooth MAC address, for example C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "This Stryd running pod is already configured.",
+      "no_devices_found": "No currently advertising Stryd running pods were found. Wake the pod and try again, or use manual MAC entry.",
+      "not_supported": "The discovered Bluetooth device is not recognized as a Stryd running pod."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Battery"
+      },
+      "power": {
+        "name": "Live power"
+      },
+      "speed": {
+        "name": "Live speed"
+      },
+      "pace": {
+        "name": "Live pace"
+      },
+      "cadence": {
+        "name": "Live cadence"
+      },
+      "stride_length": {
+        "name": "Live stride length"
+      },
+      "total_distance": {
+        "name": "Live distance"
+      },
+      "motion_state": {
+        "name": "Live movement state",
+        "state": {
+          "running": "Running",
+          "walking": "Walking",
+          "unknown": "Unknown",
+          "still": "Still"
+        }
+      },
+      "connection": {
+        "name": "Live data connection",
+        "state": {
+          "connected": "Connected",
+          "disconnected": "Disconnected"
+        }
+      },
+      "last_measurement": {
+        "name": "Last live measurement"
+      },
+      "signal_strength": {
+        "name": "Bluetooth signal strength"
+      },
+      "last_seen": {
+        "name": "Last advertisement"
+      },
+      "advertisement_count": {
+        "name": "Advertisement count"
+      },
+      "firmware": {
+        "name": "Firmware version"
+      },
+      "model_number": {
+        "name": "Model number"
+      },
+      "software_version": {
+        "name": "Software version"
+      },
+      "ant_id": {
+        "name": "ANT ID"
+      },
+      "hardware": {
+        "name": "Hardware revision"
+      },
+      "serial_number": {
+        "name": "Serial number"
+      },
+      "product_generation": {
+        "name": "Product generation"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Connect live data"
+      },
+      "disconnect": {
+        "name": "Disconnect live data"
+      }
+    }
+  }
+}

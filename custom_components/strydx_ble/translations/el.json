@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Scan for Stryd running pods",
+          "manual": "Enter Bluetooth MAC address manually"
+        }
+      },
+      "scan": {
+        "title": "Select a Stryd running pod",
+        "description": "Select a currently visible Stryd running pod.",
+        "data": {
+          "address": "Stryd running pod"
+        }
+      },
+      "manual": {
+        "title": "Add Stryd running pod manually",
+        "description": "Enter the static Bluetooth MAC address of your Stryd sensor.",
+        "data": {
+          "address": "Bluetooth MAC address",
+          "name": "Device name"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Add {name}",
+        "description": "Set up this discovered Stryd running pod?"
+      }
+    },
+    "error": {
+      "invalid_address": "Enter a valid Bluetooth MAC address, for example C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "This Stryd running pod is already configured.",
+      "no_devices_found": "No currently advertising Stryd running pods were found. Wake the pod and try again, or use manual MAC entry.",
+      "not_supported": "The discovered Bluetooth device is not recognized as a Stryd running pod."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Μπαταρία"
+      },
+      "power": {
+        "name": "Ζωντανή ισχύς"
+      },
+      "speed": {
+        "name": "Ζωντανή ταχύτητα"
+      },
+      "pace": {
+        "name": "Ζωντανός ρυθμός"
+      },
+      "cadence": {
+        "name": "Ζωντανός διασκελισμός"
+      },
+      "stride_length": {
+        "name": "Ζωντανό μήκος βήματος"
+      },
+      "total_distance": {
+        "name": "Ζωντανή απόσταση"
+      },
+      "motion_state": {
+        "name": "Ζωντανή κατάσταση κίνησης",
+        "state": {
+          "running": "Τρέξιμο",
+          "walking": "Περπάτημα",
+          "unknown": "Άγνωστη",
+          "still": "Ακίνητο"
+        }
+      },
+      "connection": {
+        "name": "Σύνδεση ζωντανών δεδομένων",
+        "state": {
+          "connected": "Συνδεδεμένο",
+          "disconnected": "Αποσυνδεδεμένο"
+        }
+      },
+      "last_measurement": {
+        "name": "Τελευταία ζωντανή μέτρηση"
+      },
+      "signal_strength": {
+        "name": "Ισχύς σήματος Bluetooth"
+      },
+      "last_seen": {
+        "name": "Τελευταία διαφήμιση Bluetooth"
+      },
+      "advertisement_count": {
+        "name": "Πλήθος διαφημίσεων Bluetooth"
+      },
+      "firmware": {
+        "name": "Έκδοση firmware"
+      },
+      "model_number": {
+        "name": "Αριθμός μοντέλου"
+      },
+      "software_version": {
+        "name": "Έκδοση λογισμικού"
+      },
+      "ant_id": {
+        "name": "ANT ID"
+      },
+      "hardware": {
+        "name": "Έκδοση υλικού"
+      },
+      "serial_number": {
+        "name": "Σειριακός αριθμός"
+      },
+      "product_generation": {
+        "name": "Γενιά προϊόντος"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Σύνδεση ζωντανών δεδομένων"
+      },
+      "disconnect": {
+        "name": "Αποσύνδεση ζωντανών δεδομένων"
+      }
+    }
+  }
+}

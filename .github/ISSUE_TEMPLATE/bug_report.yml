@@ -1,0 +1,77 @@
+name: Bug report
+description: Report a reproducible problem with the integration
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting a problem. Please remove secrets and redact Bluetooth addresses when appropriate.
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      placeholder: 2026.x.x
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      placeholder: 3.5.0
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Home Assistant installation
+      options:
+        - Home Assistant OS
+        - Home Assistant Container
+        - Home Assistant Core
+        - Home Assistant Supervised
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: bluetooth
+    attributes:
+      label: Bluetooth adapter or proxy
+      placeholder: Local adapter, ESPHome proxy model, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem description
+      description: Explain what happened and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Wake the pod
+        2. Press Connect live data
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Debug logs
+      render: text
+  - type: textarea
+    id: advertisement
+    attributes:
+      label: Sanitized Bluetooth advertisement
+      render: json
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates.
+          required: true
+        - label: I removed passwords, tokens, and other secrets.
+          required: true
