@@ -1,7 +1,6 @@
 version: 2
 
 updates:
-  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -18,25 +17,5 @@ updates:
 
     groups:
       github-actions:
-        patterns:
-          - "*"
-
-  # Python (future-proof)
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "06:15"
-      timezone: "Europe/Berlin"
-
-    open-pull-requests-limit: 5
-
-    labels:
-      - dependencies
-      - python
-
-    groups:
-      python:
         patterns:
           - "*"
