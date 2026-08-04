@@ -18,9 +18,9 @@
   "dependencies": [
     "bluetooth_adapters"
   ],
-  "documentation": "https://github.com/Chreece/ha-stryd-ble",
+  "documentation": "https://github.com/Chreece/HA-Stryd-BLE",
+  "issue_tracker": "https://github.com/Chreece/HA-Stryd-BLE/issues", 
   "iot_class": "local_push",
-  "issue_tracker": "https://github.com/Chreece/ha-stryd-ble/issues",
   "requirements": [],
   "version": "2026.8.0"
 }
