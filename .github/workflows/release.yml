@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - "**"
+      - "[0-9][0-9][0-9][0-9].[0-9]+.[0-9]+"
+      - "[0-9][0-9][0-9][0-9].[0-9]+.[0-9]+-*"
 
 permissions:
   contents: write
@@ -20,22 +21,24 @@ jobs:
       - name: Validate tag and manifest version
         shell: bash
         run: |
+          set -euo pipefail
+
           TAG="${GITHUB_REF_NAME}"
 
-          if [[ ! "$TAG" =~ ^[0-9]{4}\.[0-9]+\.[0-9]+(-beta\.[0-9]+)?$ ]]; then
+          if [[ ! "$TAG" =~ ^[0-9]{4}\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$ ]]; then
             echo "::error::Unsupported tag format: $TAG"
-            echo "Expected 2026.8.0 or 2026.8.0-beta.1"
+            echo "Expected examples: 2026.8.0 or 2026.8.1-beta.1"
             exit 1
           fi
 
           MANIFEST_VERSION="$(
-            python3 -c '
+            python3 - <<'PY'
           import json
           from pathlib import Path
 
           manifest = Path("custom_components/strydx_ble/manifest.json")
-          print(json.loads(manifest.read_text())["version"])
-          '
+          print(json.loads(manifest.read_text(encoding="utf-8"))["version"])
+          PY
           )"
 
           if [[ "$MANIFEST_VERSION" != "$TAG" ]]; then
@@ -46,6 +49,8 @@ jobs:
       - name: Validate integration files
         shell: bash
         run: |
+          set -euo pipefail
+
           python3 -m compileall -q custom_components/strydx_ble
 
           python3 - <<'PY'
@@ -58,26 +63,103 @@ jobs:
               print(f"Valid JSON: {path}")
           PY
 
+      - name: Extract release notes from changelog
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="${GITHUB_REF_NAME}"
+
+          python3 - "$TAG" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          version = sys.argv[1]
+          changelog_path = Path("CHANGELOG.md")
+
+          if not changelog_path.exists():
+              raise SystemExit("CHANGELOG.md was not found")
+
+          text = changelog_path.read_text(encoding="utf-8")
+
+          # Supports headings such as:
+          # ## 2026.8.0
+          # ## [2026.8.0]
+          # ## 2026.8.0 - 2026-08-04
+          heading = re.compile(
+              rf"^##\s+\[?{re.escape(version)}\]?(?:\s+-\s+.*)?\s*$",
+              re.MULTILINE,
+          )
+
+          match = heading.search(text)
+
+          if match is None:
+              raise SystemExit(
+                  f"No CHANGELOG.md section found for version {version}. "
+                  f"Add a heading such as: ## {version}"
+              )
+
+          next_heading = re.search(
+              r"^##\s+",
+              text[match.end():],
+              re.MULTILINE,
+          )
+
+          if next_heading:
+              end = match.end() + next_heading.start()
+              section = text[match.start():end]
+          else:
+              section = text[match.start():]
+
+          section = section.strip()
+
+          # Remove the version heading because the release already has a title.
+          lines = section.splitlines()
+          notes = "\n".join(lines[1:]).strip()
+
+          if not notes:
+              raise SystemExit(
+                  f"The CHANGELOG.md section for {version} is empty"
+              )
+
+          Path("release-notes.md").write_text(
+              notes + "\n",
+              encoding="utf-8",
+          )
+
+          print("Release notes:")
+          print(notes)
+          PY
+
       - name: Build HACS archive
         shell: bash
         run: |
+          set -euo pipefail
+
           rm -f strydx_ble.zip
 
           cd custom_components/strydx_ble
+
           zip -r ../../strydx_ble.zip . \
             -x "__pycache__/*" \
-            -x "*.pyc"
+            -x "*/__pycache__/*" \
+            -x "*.pyc" \
+            -x "*.pyo"
+
           cd ../..
 
+          echo "Archive contents:"
           unzip -l strydx_ble.zip
 
+          # Ensure HACS can find the manifest at the ZIP root.
           unzip -p strydx_ble.zip manifest.json >/dev/null
 
       - name: Determine release type
-        id: type
+        id: release_type
         shell: bash
         run: |
-          if [[ "${GITHUB_REF_NAME}" == *"-beta."* ]]; then
+          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           else
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
@@ -88,16 +170,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
+          set -euo pipefail
+
           ARGS=(
             "${GITHUB_REF_NAME}"
             "strydx_ble.zip"
             --repo "${GITHUB_REPOSITORY}"
             --title "Stryd BLE ${GITHUB_REF_NAME}"
-            --generate-notes
+            --notes-file "release-notes.md"
+            --verify-tag
           )
 
-          if [[ "${{ steps.type.outputs.prerelease }}" == "true" ]]; then
+          if [[ "${{ steps.release_type.outputs.prerelease }}" == "true" ]]; then
             ARGS+=(--prerelease)
+          else
+            ARGS+=(--latest)
           fi
 
           gh release create "${ARGS[@]}"
