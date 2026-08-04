@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Check out tagged commit
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Validate tag and manifest version
         shell: bash
