@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Zoeken naar Stryd-hardloopsensoren",
+          "manual": "Bluetooth-MAC-adres handmatig invoeren"
+        }
+      },
+      "scan": {
+        "title": "Selecteer een Stryd-hardloopsensor",
+        "description": "Selecteer een momenteel zichtbare Stryd-hardloopsensor.",
+        "data": {
+          "address": "Stryd-hardloopsensor"
+        }
+      },
+      "manual": {
+        "title": "Stryd-sensor handmatig toevoegen",
+        "description": "Voer het vaste Bluetooth-MAC-adres van je Stryd-sensor in.",
+        "data": {
+          "address": "Bluetooth-MAC-adres",
+          "name": "Apparaatnaam"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "{name} toevoegen",
+        "description": "Deze gevonden Stryd-hardloopsensor instellen?"
+      }
+    },
+    "error": {
+      "invalid_address": "Voer een geldig Bluetooth-MAC-adres in, bijvoorbeeld C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "Deze Stryd-hardloopsensor is al geconfigureerd.",
+      "no_devices_found": "Er zijn geen Stryd-hardloopsensoren gevonden die momenteel adverteren. Maak de sensor wakker en probeer opnieuw, of gebruik handmatige MAC-invoer.",
+      "not_supported": "Het gevonden Bluetooth-apparaat wordt niet herkend als een Stryd-hardloopsensor."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Batterij"
+      },
+      "power": {
+        "name": "Live vermogen"
+      },
+      "speed": {
+        "name": "Live snelheid"
+      },
+      "pace": {
+        "name": "Live tempo"
+      },
+      "cadence": {
+        "name": "Live cadans"
+      },
+      "stride_length": {
+        "name": "Live paslengte"
+      },
+      "total_distance": {
+        "name": "Live afstand"
+      },
+      "motion_state": {
+        "name": "Live bewegingsstatus",
+        "state": {
+          "running": "Hardlopen",
+          "walking": "Wandelen",
+          "unknown": "Onbekend",
+          "still": "Stilstaand"
+        }
+      },
+      "connection": {
+        "name": "Live gegevensverbinding",
+        "state": {
+          "connected": "Verbonden",
+          "disconnected": "Niet verbonden"
+        }
+      },
+      "last_measurement": {
+        "name": "Laatste live meting"
+      },
+      "signal_strength": {
+        "name": "Bluetooth-signaalsterkte"
+      },
+      "last_seen": {
+        "name": "Laatste advertentie"
+      },
+      "advertisement_count": {
+        "name": "Aantal advertenties"
+      },
+      "firmware": {
+        "name": "Firmwareversie"
+      },
+      "model_number": {
+        "name": "Modelnummer"
+      },
+      "software_version": {
+        "name": "Softwareversie"
+      },
+      "ant_id": {
+        "name": "ANT-ID"
+      },
+      "hardware": {
+        "name": "Hardwarerevisie"
+      },
+      "serial_number": {
+        "name": "Serienummer"
+      },
+      "product_generation": {
+        "name": "Productgeneratie"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Live gegevens verbinden"
+      },
+      "disconnect": {
+        "name": "Live gegevens verbreken"
+      }
+    }
+  }
+}

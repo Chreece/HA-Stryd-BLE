@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Nach Stryd-Laufsensoren suchen",
+          "manual": "Bluetooth-MAC-Adresse manuell eingeben"
+        }
+      },
+      "scan": {
+        "title": "Stryd-Laufsensor auswählen",
+        "description": "Wähle einen derzeit sichtbaren Stryd-Laufsensor aus.",
+        "data": {
+          "address": "Stryd-Laufsensor"
+        }
+      },
+      "manual": {
+        "title": "Stryd-Laufsensor manuell hinzufügen",
+        "description": "Gib die statische Bluetooth-MAC-Adresse deines Stryd-Sensors ein.",
+        "data": {
+          "address": "Bluetooth-MAC-Adresse",
+          "name": "Gerätename"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "{name} hinzufügen",
+        "description": "Diesen erkannten Stryd-Laufsensor einrichten?"
+      }
+    },
+    "error": {
+      "invalid_address": "Gib eine gültige Bluetooth-MAC-Adresse ein, zum Beispiel C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "Dieser Stryd-Laufsensor ist bereits konfiguriert.",
+      "no_devices_found": "Es wurden keine derzeit sendenden Stryd-Laufsensoren gefunden. Wecke den Sensor und versuche es erneut oder verwende die manuelle MAC-Eingabe.",
+      "not_supported": "Das erkannte Bluetooth-Gerät wurde nicht als Stryd-Laufsensor erkannt."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Batterie"
+      },
+      "power": {
+        "name": "Live-Leistung"
+      },
+      "speed": {
+        "name": "Live-Geschwindigkeit"
+      },
+      "pace": {
+        "name": "Live-Tempo"
+      },
+      "cadence": {
+        "name": "Live-Kadenz"
+      },
+      "stride_length": {
+        "name": "Live-Schrittlänge"
+      },
+      "total_distance": {
+        "name": "Live-Distanz"
+      },
+      "motion_state": {
+        "name": "Live-Bewegungsstatus",
+        "state": {
+          "running": "Laufen",
+          "walking": "Gehen",
+          "unknown": "Unbekannt",
+          "still": "Stillstand"
+        }
+      },
+      "connection": {
+        "name": "Live-Datenverbindung",
+        "state": {
+          "connected": "Verbunden",
+          "disconnected": "Getrennt"
+        }
+      },
+      "last_measurement": {
+        "name": "Letzte Live-Messung"
+      },
+      "signal_strength": {
+        "name": "Bluetooth-Signalstärke"
+      },
+      "last_seen": {
+        "name": "Letzte Übertragung"
+      },
+      "advertisement_count": {
+        "name": "Anzahl der Übertragungen"
+      },
+      "firmware": {
+        "name": "Firmware-Version"
+      },
+      "model_number": {
+        "name": "Modellnummer"
+      },
+      "software_version": {
+        "name": "Software-Version"
+      },
+      "ant_id": {
+        "name": "ANT-ID"
+      },
+      "hardware": {
+        "name": "Hardware-Revision"
+      },
+      "serial_number": {
+        "name": "Seriennummer"
+      },
+      "product_generation": {
+        "name": "Produktgeneration"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Live-Daten verbinden"
+      },
+      "disconnect": {
+        "name": "Live-Daten trennen"
+      }
+    }
+  }
+}

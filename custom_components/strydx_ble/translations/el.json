@@ -4,37 +4,37 @@
     "step": {
       "user": {
         "menu_options": {
-          "scan": "Scan for Stryd running pods",
-          "manual": "Enter Bluetooth MAC address manually"
+          "scan": "Αναζήτηση για αισθητήρες τρεξίματος Stryd",
+          "manual": "Χειροκίνητη εισαγωγή διεύθυνσης Bluetooth MAC"
         }
       },
       "scan": {
-        "title": "Select a Stryd running pod",
-        "description": "Select a currently visible Stryd running pod.",
+        "title": "Επιλογή αισθητήρα τρεξίματος Stryd",
+        "description": "Επίλεξε έναν αισθητήρα τρεξίματος Stryd που είναι τώρα ορατός.",
         "data": {
-          "address": "Stryd running pod"
+          "address": "Αισθητήρας τρεξίματος Stryd"
         }
       },
       "manual": {
-        "title": "Add Stryd running pod manually",
-        "description": "Enter the static Bluetooth MAC address of your Stryd sensor.",
+        "title": "Χειροκίνητη προσθήκη αισθητήρα Stryd",
+        "description": "Εισήγαγε τη στατική διεύθυνση Bluetooth MAC του αισθητήρα Stryd.",
         "data": {
-          "address": "Bluetooth MAC address",
-          "name": "Device name"
+          "address": "Διεύθυνση Bluetooth MAC",
+          "name": "Όνομα συσκευής"
         }
       },
       "bluetooth_confirm": {
-        "title": "Add {name}",
-        "description": "Set up this discovered Stryd running pod?"
+        "title": "Προσθήκη {name}",
+        "description": "Να ρυθμιστεί αυτός ο αισθητήρας τρεξίματος Stryd;"
       }
     },
     "error": {
-      "invalid_address": "Enter a valid Bluetooth MAC address, for example C5:7D:0B:B3:91:A0."
+      "invalid_address": "Εισήγαγε έγκυρη διεύθυνση Bluetooth MAC, για παράδειγμα C5:7D:0B:B3:91:A0."
     },
     "abort": {
-      "already_configured": "This Stryd running pod is already configured.",
-      "no_devices_found": "No currently advertising Stryd running pods were found. Wake the pod and try again, or use manual MAC entry.",
-      "not_supported": "The discovered Bluetooth device is not recognized as a Stryd running pod."
+      "already_configured": "Αυτός ο αισθητήρας τρεξίματος Stryd έχει ήδη ρυθμιστεί.",
+      "no_devices_found": "Δεν βρέθηκαν αισθητήρες τρεξίματος Stryd που εκπέμπουν αυτή τη στιγμή. Ξύπνησε τον αισθητήρα και δοκίμασε ξανά ή χρησιμοποίησε χειροκίνητη εισαγωγή MAC.",
+      "not_supported": "Η συσκευή Bluetooth που εντοπίστηκε δεν αναγνωρίζεται ως αισθητήρας τρεξίματος Stryd."
     }
   },
   "entity": {
@@ -52,10 +52,10 @@
         "name": "Ζωντανός ρυθμός"
       },
       "cadence": {
-        "name": "Ζωντανός διασκελισμός"
+        "name": "Ζωντανός ρυθμός βημάτων"
       },
       "stride_length": {
-        "name": "Ζωντανό μήκος βήματος"
+        "name": "Ζωντανό μήκος διασκελισμού"
       },
       "total_distance": {
         "name": "Ζωντανή απόσταση"
@@ -65,7 +65,7 @@
         "state": {
           "running": "Τρέξιμο",
           "walking": "Περπάτημα",
-          "unknown": "Άγνωστη",
+          "unknown": "Άγνωστο",
           "still": "Ακίνητο"
         }
       },
@@ -83,10 +83,10 @@
         "name": "Ισχύς σήματος Bluetooth"
       },
       "last_seen": {
-        "name": "Τελευταία διαφήμιση Bluetooth"
+        "name": "Τελευταία εκπομπή"
       },
       "advertisement_count": {
-        "name": "Πλήθος διαφημίσεων Bluetooth"
+        "name": "Πλήθος εκπομπών"
       },
       "firmware": {
         "name": "Έκδοση firmware"
@@ -101,7 +101,7 @@
         "name": "ANT ID"
       },
       "hardware": {
-        "name": "Έκδοση υλικού"
+        "name": "Αναθεώρηση υλικού"
       },
       "serial_number": {
         "name": "Σειριακός αριθμός"

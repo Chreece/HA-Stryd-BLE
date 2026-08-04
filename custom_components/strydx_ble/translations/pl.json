@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Szukaj czujników biegowych Stryd",
+          "manual": "Wprowadź ręcznie adres MAC Bluetooth"
+        }
+      },
+      "scan": {
+        "title": "Wybierz czujnik biegowy Stryd",
+        "description": "Wybierz aktualnie widoczny czujnik biegowy Stryd.",
+        "data": {
+          "address": "Czujnik biegowy Stryd"
+        }
+      },
+      "manual": {
+        "title": "Dodaj czujnik Stryd ręcznie",
+        "description": "Wprowadź statyczny adres MAC Bluetooth swojego czujnika Stryd.",
+        "data": {
+          "address": "Adres MAC Bluetooth",
+          "name": "Nazwa urządzenia"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Dodaj {name}",
+        "description": "Skonfigurować wykryty czujnik biegowy Stryd?"
+      }
+    },
+    "error": {
+      "invalid_address": "Wprowadź prawidłowy adres MAC Bluetooth, na przykład C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "Ten czujnik biegowy Stryd jest już skonfigurowany.",
+      "no_devices_found": "Nie znaleziono obecnie nadających czujników biegowych Stryd. Wybudź czujnik i spróbuj ponownie albo użyj ręcznego wpisania adresu MAC.",
+      "not_supported": "Wykryte urządzenie Bluetooth nie zostało rozpoznane jako czujnik biegowy Stryd."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Bateria"
+      },
+      "power": {
+        "name": "Moc na żywo"
+      },
+      "speed": {
+        "name": "Prędkość na żywo"
+      },
+      "pace": {
+        "name": "Tempo na żywo"
+      },
+      "cadence": {
+        "name": "Kadencja na żywo"
+      },
+      "stride_length": {
+        "name": "Długość kroku na żywo"
+      },
+      "total_distance": {
+        "name": "Dystans na żywo"
+      },
+      "motion_state": {
+        "name": "Stan ruchu na żywo",
+        "state": {
+          "running": "Bieg",
+          "walking": "Chód",
+          "unknown": "Nieznany",
+          "still": "Bezruch"
+        }
+      },
+      "connection": {
+        "name": "Połączenie danych na żywo",
+        "state": {
+          "connected": "Połączono",
+          "disconnected": "Rozłączono"
+        }
+      },
+      "last_measurement": {
+        "name": "Ostatni pomiar na żywo"
+      },
+      "signal_strength": {
+        "name": "Siła sygnału Bluetooth"
+      },
+      "last_seen": {
+        "name": "Ostatnia transmisja"
+      },
+      "advertisement_count": {
+        "name": "Liczba transmisji"
+      },
+      "firmware": {
+        "name": "Wersja firmware"
+      },
+      "model_number": {
+        "name": "Numer modelu"
+      },
+      "software_version": {
+        "name": "Wersja oprogramowania"
+      },
+      "ant_id": {
+        "name": "ID ANT"
+      },
+      "hardware": {
+        "name": "Rewizja sprzętu"
+      },
+      "serial_number": {
+        "name": "Numer seryjny"
+      },
+      "product_generation": {
+        "name": "Generacja produktu"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Połącz dane na żywo"
+      },
+      "disconnect": {
+        "name": "Rozłącz dane na żywo"
+      }
+    }
+  }
+}

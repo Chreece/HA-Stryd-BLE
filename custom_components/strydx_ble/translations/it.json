@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Cerca sensori da corsa Stryd",
+          "manual": "Inserisci manualmente l’indirizzo MAC Bluetooth"
+        }
+      },
+      "scan": {
+        "title": "Seleziona un sensore da corsa Stryd",
+        "description": "Seleziona un sensore da corsa Stryd attualmente visibile.",
+        "data": {
+          "address": "Sensore da corsa Stryd"
+        }
+      },
+      "manual": {
+        "title": "Aggiungi manualmente un sensore Stryd",
+        "description": "Inserisci l’indirizzo MAC Bluetooth statico del tuo sensore Stryd.",
+        "data": {
+          "address": "Indirizzo MAC Bluetooth",
+          "name": "Nome dispositivo"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Aggiungi {name}",
+        "description": "Configurare questo sensore da corsa Stryd rilevato?"
+      }
+    },
+    "error": {
+      "invalid_address": "Inserisci un indirizzo MAC Bluetooth valido, ad esempio C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "Questo sensore da corsa Stryd è già configurato.",
+      "no_devices_found": "Non sono stati trovati sensori da corsa Stryd che stanno trasmettendo. Riattiva il sensore e riprova oppure usa l’inserimento manuale del MAC.",
+      "not_supported": "Il dispositivo Bluetooth rilevato non è riconosciuto come sensore da corsa Stryd."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Batteria"
+      },
+      "power": {
+        "name": "Potenza in tempo reale"
+      },
+      "speed": {
+        "name": "Velocità in tempo reale"
+      },
+      "pace": {
+        "name": "Passo in tempo reale"
+      },
+      "cadence": {
+        "name": "Cadenza in tempo reale"
+      },
+      "stride_length": {
+        "name": "Lunghezza falcata in tempo reale"
+      },
+      "total_distance": {
+        "name": "Distanza in tempo reale"
+      },
+      "motion_state": {
+        "name": "Stato del movimento in tempo reale",
+        "state": {
+          "running": "Corsa",
+          "walking": "Camminata",
+          "unknown": "Sconosciuto",
+          "still": "Fermo"
+        }
+      },
+      "connection": {
+        "name": "Connessione dati in tempo reale",
+        "state": {
+          "connected": "Connesso",
+          "disconnected": "Disconnesso"
+        }
+      },
+      "last_measurement": {
+        "name": "Ultima misurazione in tempo reale"
+      },
+      "signal_strength": {
+        "name": "Potenza del segnale Bluetooth"
+      },
+      "last_seen": {
+        "name": "Ultima trasmissione"
+      },
+      "advertisement_count": {
+        "name": "Conteggio trasmissioni"
+      },
+      "firmware": {
+        "name": "Versione firmware"
+      },
+      "model_number": {
+        "name": "Numero modello"
+      },
+      "software_version": {
+        "name": "Versione software"
+      },
+      "ant_id": {
+        "name": "ID ANT"
+      },
+      "hardware": {
+        "name": "Revisione hardware"
+      },
+      "serial_number": {
+        "name": "Numero di serie"
+      },
+      "product_generation": {
+        "name": "Generazione prodotto"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Connetti dati in tempo reale"
+      },
+      "disconnect": {
+        "name": "Disconnetti dati in tempo reale"
+      }
+    }
+  }
+}

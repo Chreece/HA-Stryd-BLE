@@ -1,0 +1,122 @@
+{
+  "title": "Stryd BLE",
+  "config": {
+    "step": {
+      "user": {
+        "menu_options": {
+          "scan": "Rechercher des capteurs de course Stryd",
+          "manual": "Saisir manuellement l’adresse MAC Bluetooth"
+        }
+      },
+      "scan": {
+        "title": "Sélectionner un capteur de course Stryd",
+        "description": "Sélectionnez un capteur de course Stryd actuellement visible.",
+        "data": {
+          "address": "Capteur de course Stryd"
+        }
+      },
+      "manual": {
+        "title": "Ajouter manuellement un capteur Stryd",
+        "description": "Saisissez l’adresse MAC Bluetooth statique de votre capteur Stryd.",
+        "data": {
+          "address": "Adresse MAC Bluetooth",
+          "name": "Nom de l’appareil"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Ajouter {name}",
+        "description": "Configurer ce capteur de course Stryd détecté ?"
+      }
+    },
+    "error": {
+      "invalid_address": "Saisissez une adresse MAC Bluetooth valide, par exemple C5:7D:0B:B3:91:A0."
+    },
+    "abort": {
+      "already_configured": "Ce capteur de course Stryd est déjà configuré.",
+      "no_devices_found": "Aucun capteur de course Stryd en cours de diffusion n’a été trouvé. Réveillez le capteur et réessayez, ou utilisez la saisie manuelle de l’adresse MAC.",
+      "not_supported": "L’appareil Bluetooth détecté n’est pas reconnu comme un capteur de course Stryd."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery": {
+        "name": "Batterie"
+      },
+      "power": {
+        "name": "Puissance en direct"
+      },
+      "speed": {
+        "name": "Vitesse en direct"
+      },
+      "pace": {
+        "name": "Allure en direct"
+      },
+      "cadence": {
+        "name": "Cadence en direct"
+      },
+      "stride_length": {
+        "name": "Longueur de foulée en direct"
+      },
+      "total_distance": {
+        "name": "Distance en direct"
+      },
+      "motion_state": {
+        "name": "État du mouvement en direct",
+        "state": {
+          "running": "Course",
+          "walking": "Marche",
+          "unknown": "Inconnu",
+          "still": "Immobile"
+        }
+      },
+      "connection": {
+        "name": "Connexion des données en direct",
+        "state": {
+          "connected": "Connecté",
+          "disconnected": "Déconnecté"
+        }
+      },
+      "last_measurement": {
+        "name": "Dernière mesure en direct"
+      },
+      "signal_strength": {
+        "name": "Intensité du signal Bluetooth"
+      },
+      "last_seen": {
+        "name": "Dernière diffusion"
+      },
+      "advertisement_count": {
+        "name": "Nombre de diffusions"
+      },
+      "firmware": {
+        "name": "Version du micrologiciel"
+      },
+      "model_number": {
+        "name": "Numéro de modèle"
+      },
+      "software_version": {
+        "name": "Version du logiciel"
+      },
+      "ant_id": {
+        "name": "ID ANT"
+      },
+      "hardware": {
+        "name": "Révision matérielle"
+      },
+      "serial_number": {
+        "name": "Numéro de série"
+      },
+      "product_generation": {
+        "name": "Génération du produit"
+      }
+    },
+    "button": {
+      "connect": {
+        "name": "Connecter les données en direct"
+      },
+      "disconnect": {
+        "name": "Déconnecter les données en direct"
+      }
+    }
+  }
+}
