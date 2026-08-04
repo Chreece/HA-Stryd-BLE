@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9][0-9][0-9][0-9].[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-version:
+    name: Validate version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Read manifest version
+        id: manifest
+        shell: bash
+        run: |
+          VERSION="$(python3 -c \
+            'import json; print(json.load(open("custom_components/strydx_ble/manifest.json"))["version"])')"
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          if [ "$VERSION" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::Manifest version '$VERSION' does not match tag '${GITHUB_REF_NAME}'."
+            exit 1
+          fi
+
+  release:
+    name: Publish GitHub release
+    needs: validate-version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Build HACS release archive
+        shell: bash
+        run: |
+          cd custom_components/strydx_ble
+          zip -r ../../strydx_ble.zip .
+          cd ../..
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            strydx_ble.zip \
+            --title "Stryd BLE ${GITHUB_REF_NAME}" \
+            --generate-notes
