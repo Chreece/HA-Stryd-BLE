@@ -22,5 +22,5 @@
   "issue_tracker": "https://github.com/Chreece/HA-Stryd-BLE/issues", 
   "iot_class": "local_push",
   "requirements": [],
-  "version": "2026.8.0"
+  "version": "2026.8.0-beta.1"
 }
