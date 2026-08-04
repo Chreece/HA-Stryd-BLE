@@ -3,53 +3,81 @@ name: Release
 on:
   push:
     tags:
-      - "[0-9][0-9][0-9][0-9].[0-9]+.[0-9]+"
-      - "[0-9][0-9][0-9][0-9].[0-9]+.[0-9]+-*"
+      - "**"
 
 permissions:
   contents: write
 
 jobs:
-  validate-version:
-    name: Validate version
+  release:
+    name: Build and publish release
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out tagged commit
         uses: actions/checkout@v5
 
-      - name: Validate manifest version
+      - name: Validate tag and manifest version
         shell: bash
         run: |
-          VERSION="$(python3 -c \
-            'import json; print(json.load(open("custom_components/strydx_ble/manifest.json"))["version"])')"
+          TAG="${GITHUB_REF_NAME}"
 
-          if [ "$VERSION" != "${GITHUB_REF_NAME}" ]; then
-            echo "::error::Manifest version '$VERSION' does not match tag '${GITHUB_REF_NAME}'."
+          if [[ ! "$TAG" =~ ^[0-9]{4}\.[0-9]+\.[0-9]+(-beta\.[0-9]+)?$ ]]; then
+            echo "::error::Unsupported tag format: $TAG"
+            echo "Expected 2026.8.0 or 2026.8.0-beta.1"
             exit 1
           fi
 
-  release:
-    name: Publish GitHub release
-    needs: validate-version
-    runs-on: ubuntu-latest
+          MANIFEST_VERSION="$(
+            python3 -c '
+          import json
+          from pathlib import Path
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v5
+          manifest = Path("custom_components/strydx_ble/manifest.json")
+          print(json.loads(manifest.read_text())["version"])
+          '
+          )"
+
+          if [[ "$MANIFEST_VERSION" != "$TAG" ]]; then
+            echo "::error::Manifest version '$MANIFEST_VERSION' does not match tag '$TAG'."
+            exit 1
+          fi
+
+      - name: Validate integration files
+        shell: bash
+        run: |
+          python3 -m compileall -q custom_components/strydx_ble
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          for path in Path("custom_components/strydx_ble").rglob("*.json"):
+              with path.open(encoding="utf-8") as file:
+                  json.load(file)
+              print(f"Valid JSON: {path}")
+          PY
 
       - name: Build HACS archive
         shell: bash
         run: |
+          rm -f strydx_ble.zip
+
           cd custom_components/strydx_ble
-          zip -r ../../strydx_ble.zip .
+          zip -r ../../strydx_ble.zip . \
+            -x "__pycache__/*" \
+            -x "*.pyc"
           cd ../..
 
+          unzip -l strydx_ble.zip
+
+          unzip -p strydx_ble.zip manifest.json >/dev/null
+
       - name: Determine release type
-        id: release_type
+        id: type
         shell: bash
         run: |
-          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
+          if [[ "${GITHUB_REF_NAME}" == *"-beta."* ]]; then
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           else
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
@@ -60,14 +88,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          EXTRA_ARGS=()
+          ARGS=(
+            "${GITHUB_REF_NAME}"
+            "strydx_ble.zip"
+            --repo "${GITHUB_REPOSITORY}"
+            --title "Stryd BLE ${GITHUB_REF_NAME}"
+            --generate-notes
+          )
 
-          if [ "${{ steps.release_type.outputs.prerelease }}" = "true" ]; then
-            EXTRA_ARGS+=(--prerelease)
+          if [[ "${{ steps.type.outputs.prerelease }}" == "true" ]]; then
+            ARGS+=(--prerelease)
           fi
 
-          gh release create "${GITHUB_REF_NAME}" \
-            strydx_ble.zip \
-            --title "Stryd BLE ${GITHUB_REF_NAME}" \
-            --generate-notes \
-            "${EXTRA_ARGS[@]}"
+          gh release create "${ARGS[@]}"
