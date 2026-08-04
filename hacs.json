@@ -1,4 +1,5 @@
 {
   "name": "Stryd BLE",
-  "render_readme": true
+  "zip_release": true,
+  "filename": "strydx_ble.zip"
 }
