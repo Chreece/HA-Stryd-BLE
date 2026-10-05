@@ -7,9 +7,6 @@
 
 # Stryd BLE for Home Assistant
 
-💙 **Enjoying this hobby project? [Send a voluntary thank-you via Ko-fi](https://ko-fi.com/chreece).**
-
-
 [![HACS validation](https://github.com/Chreece/ha-stryd-ble/actions/workflows/validate.yml/badge.svg)](https://github.com/Chreece/ha-stryd-ble/actions/workflows/validate.yml)
 [![GitHub release](https://img.shields.io/github/v/release/Chreece/ha-stryd-ble)](https://github.com/Chreece/ha-stryd-ble/releases)
 [![License](https://img.shields.io/github/license/Chreece/ha-stryd-ble)](LICENSE)
